@@ -1,6 +1,14 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
+import TestAuth from './TestAuth'
 
 export default function App(){
+  const [showTest, setShowTest] = useState(false)
+
+  if (showTest) {
+    return <TestAuth />
+  }
+
   return (
     <div className="min-h-[100dvh] grid place-items-center p-6">
       <motion.div 
@@ -19,8 +27,17 @@ export default function App(){
             Crear cuenta
           </a>
         </div>
+        
+        {/* Botón para testing */}
+        <button
+          onClick={() => setShowTest(true)}
+          className="mt-4 w-full text-center rounded-lg bg-blue-600 hover:bg-blue-700 text-white py-2 text-sm"
+        >
+          🧪 Test Authentication
+        </button>
+        
         <p className="mt-4 text-center text-xs text-white/50">
-          MVP React + Tailwind listo.
+          MVP React + Tailwind + Auth listo.
         </p>
       </motion.div>
     </div>
