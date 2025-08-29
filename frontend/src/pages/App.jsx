@@ -1,12 +1,17 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import TestAuth from './TestAuth'
+import Login from './Login'
 
 export default function App(){
-  const [showTest, setShowTest] = useState(false)
+  const [currentView, setCurrentView] = useState('home') // 'home', 'test', 'login'
 
-  if (showTest) {
+  if (currentView === 'test') {
     return <TestAuth />
+  }
+
+  if (currentView === 'login') {
+    return <Login />
   }
 
   return (
@@ -20,17 +25,23 @@ export default function App(){
         <h1 className="text-3xl font-bold text-center">MoniFly</h1>
         <p className="text-center text-white/70">Finanzas personales, simple.</p>
         <div className="mt-6 grid grid-cols-2 gap-3">
-          <a className="text-center rounded-lg bg-white/10 hover:bg-white/20 py-2" href="#">
+          <button
+            onClick={() => setCurrentView('login')}
+            className="text-center rounded-lg bg-white/10 hover:bg-white/20 py-2"
+          >
             Ingresar
-          </a>
-          <a className="text-center rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white py-2" href="#">
+          </button>
+          <button
+            onClick={() => setCurrentView('login')}
+            className="text-center rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white py-2"
+          >
             Crear cuenta
-          </a>
+          </button>
         </div>
         
         {/* Botón para testing */}
         <button
-          onClick={() => setShowTest(true)}
+          onClick={() => setCurrentView('test')}
           className="mt-4 w-full text-center rounded-lg bg-blue-600 hover:bg-blue-700 text-white py-2 text-sm"
         >
           🧪 Test Authentication
