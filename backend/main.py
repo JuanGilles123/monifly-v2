@@ -27,11 +27,12 @@ app.add_middleware(
 
 # Importar y registrar routers
 try:
-    from app.routers import auth
-    app.include_router(auth.router)
-except ImportError:
+    from auth_simple import router as auth_router
+    app.include_router(auth_router)
+    print("✅ Auth router loaded successfully")
+except Exception as e:
+    print(f"⚠️ Could not load auth router: {e}")
     # Si no se puede importar, usar endpoints básicos
-    pass
 
 
 @app.get("/")
