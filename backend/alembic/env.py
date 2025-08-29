@@ -9,7 +9,17 @@ config = context.config
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-target_metadata = None  # más adelante: from app.models import Base; target_metadata = Base.metadata
+target_metadata = None
+# Importar modelos para migraciones automáticas
+try:
+    import sys
+    import os
+    sys.path.append(os.path.dirname(os.path.dirname(__file__)))
+    from app.models import Base
+    target_metadata = Base.metadata
+except ImportError:
+    # Si no se pueden importar los modelos, usar None
+    target_metadata = None
 
 url = os.environ.get("DATABASE_URL")
 if url and "sslmode" not in url:

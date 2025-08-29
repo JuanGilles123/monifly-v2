@@ -4,7 +4,11 @@ from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
-    CORS_ORIGINS: str = "*"  # luego lo pondremos en https://app.monifly.app
+    DATABASE_URL: str = ""
+    CORS_ORIGINS: str = "*"
+    SECRET_KEY: str = "change-me-in-production"
+    ALGORITHM: str = "HS256"
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24  # 24h
 
 
 settings = Settings()
@@ -20,6 +24,14 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Importar y registrar routers
+try:
+    from app.routers import auth
+    app.include_router(auth.router)
+except ImportError:
+    # Si no se puede importar, usar endpoints básicos
+    pass
 
 
 @app.get("/")
