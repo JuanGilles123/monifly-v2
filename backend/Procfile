@@ -1,2 +1,2 @@
 # MoniFly v2 Backend API
-web: ./start.sh
+web: python run.py
